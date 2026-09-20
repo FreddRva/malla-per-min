@@ -1,0 +1,317 @@
+#include <WiFi.h>
+#include <WebServer.h>
+
+
+const char* WIFI_SSID = "12345"; //INGRESAR NOMBRE Y CONTRASEÑA DE WIFI 
+const char* WIFI_PASSWORD = "12345";
+
+#define RELAY_D25 25 
+#define RELAY_D26 26 
+#define RELAY_D27 27 
+#define RELAY_D14 14 
+#define RELAY_D18 18 
+#define RELAY_D19 19 
+#define RELAY_D32 32 
+#define RELAY_D33 33 
+#define RELAY_D21 21 
+
+WebServer server(80);
+
+void enableCORS() {
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
+void relay25On() {
+  digitalWrite(RELAY_D25, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay25Off() {
+  digitalWrite(RELAY_D25, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay26On() {
+  digitalWrite(RELAY_D26, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay26Off() {
+  digitalWrite(RELAY_D26, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay27On() {
+  digitalWrite(RELAY_D27, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay27Off() {
+  digitalWrite(RELAY_D27, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay14On() {
+  digitalWrite(RELAY_D14, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay14Off() {
+  digitalWrite(RELAY_D14, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay18On() {
+  digitalWrite(RELAY_D18, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay18Off() {
+  digitalWrite(RELAY_D18, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay19On() {
+  digitalWrite(RELAY_D19, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay19Off() {
+  digitalWrite(RELAY_D19, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay32On() {
+  digitalWrite(RELAY_D32, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay32Off() {
+  digitalWrite(RELAY_D32, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay33On() {
+  digitalWrite(RELAY_D33, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay33Off() {
+  digitalWrite(RELAY_D33, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relay21On() {
+  digitalWrite(RELAY_D21, LOW);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+void relay21Off() {
+  digitalWrite(RELAY_D21, HIGH);
+  enableCORS();
+  server.send(200, "application/json", "{\"success\":true}");
+}
+
+
+void relaysOn() {
+
+  digitalWrite(RELAY_D25, LOW);
+  digitalWrite(RELAY_D26, LOW);
+  digitalWrite(RELAY_D27, LOW);
+  digitalWrite(RELAY_D14, LOW);
+  digitalWrite(RELAY_D18, LOW);
+  digitalWrite(RELAY_D19, LOW);
+  digitalWrite(RELAY_D32, LOW);
+  digitalWrite(RELAY_D33, LOW);
+  digitalWrite(RELAY_D21, LOW);
+
+  enableCORS();
+
+  server.send(
+    200,
+    "application/json",
+    "{\"success\":true,\"message\":\"Todos encendidos rápido\"}"
+  );
+}
+
+
+void relaysOff() {
+
+  digitalWrite(RELAY_D25, HIGH);
+  digitalWrite(RELAY_D26, HIGH);
+  digitalWrite(RELAY_D27, HIGH);
+  digitalWrite(RELAY_D14, HIGH);
+  digitalWrite(RELAY_D18, HIGH);
+  digitalWrite(RELAY_D19, HIGH);
+  digitalWrite(RELAY_D32, HIGH);
+  digitalWrite(RELAY_D33, HIGH);
+  digitalWrite(RELAY_D21, HIGH);
+
+  enableCORS();
+
+  server.send(
+    200,
+    "application/json",
+    "{\"success\":true,\"message\":\"Todos apagados rápido\"}"
+  );
+}
+
+
+void relaysStatus() {
+
+  String json = "{";
+
+  json += "\"success\":true,";
+  json += "\"D25\":\"";
+  json += (digitalRead(RELAY_D25) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D26\":\"";
+  json += (digitalRead(RELAY_D26) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D27\":\"";
+  json += (digitalRead(RELAY_D27) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D14\":\"";
+  json += (digitalRead(RELAY_D14) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D18\":\"";
+  json += (digitalRead(RELAY_D18) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D19\":\"";
+  json += (digitalRead(RELAY_D19) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D32\":\"";
+  json += (digitalRead(RELAY_D32) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D33\":\"";
+  json += (digitalRead(RELAY_D33) == LOW ? "ON" : "OFF");
+  json += "\",";
+  json += "\"D21\":\"";
+  json += (digitalRead(RELAY_D21) == LOW ? "ON" : "OFF");
+  json += "\"";
+
+  json += "}";
+
+  enableCORS();
+
+  server.send(200, "application/json", json);
+}
+
+void setup() {
+
+  Serial.begin(115200);
+
+  pinMode(RELAY_D25, OUTPUT);
+  pinMode(RELAY_D26, OUTPUT);
+  pinMode(RELAY_D27, OUTPUT);
+  pinMode(RELAY_D14, OUTPUT);
+  pinMode(RELAY_D18, OUTPUT);
+  pinMode(RELAY_D19, OUTPUT);
+  pinMode(RELAY_D32, OUTPUT);
+  pinMode(RELAY_D33, OUTPUT);
+  pinMode(RELAY_D21, OUTPUT);
+
+  digitalWrite(RELAY_D25, HIGH);
+  digitalWrite(RELAY_D26, HIGH);
+  digitalWrite(RELAY_D27, HIGH);
+  digitalWrite(RELAY_D14, HIGH);
+  digitalWrite(RELAY_D18, HIGH);
+  digitalWrite(RELAY_D19, HIGH);
+  digitalWrite(RELAY_D32, HIGH);
+  digitalWrite(RELAY_D33, HIGH);
+  digitalWrite(RELAY_D21, HIGH);
+
+  Serial.println();
+  Serial.println("========================================");
+  Serial.println(" ESP32 - CONTROL DE 9 RELES");
+  Serial.println("========================================");
+  Serial.println();
+
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Conectando a WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.println("WiFi conectado");
+
+  Serial.print("IP del ESP32: ");
+  Serial.println(WiFi.localIP());
+  server.on("/relay25/on", HTTP_GET, relay25On);
+  server.on("/relay25/off", HTTP_GET, relay25Off);
+  server.on("/relay26/on", HTTP_GET, relay26On);
+  server.on("/relay26/off", HTTP_GET, relay26Off);
+  server.on("/relay27/on", HTTP_GET, relay27On);
+  server.on("/relay27/off", HTTP_GET, relay27Off);
+  server.on("/relay14/on", HTTP_GET, relay14On);
+  server.on("/relay14/off", HTTP_GET, relay14Off);
+  server.on("/relay18/on", HTTP_GET, relay18On);
+  server.on("/relay18/off", HTTP_GET, relay18Off);
+  server.on("/relay19/on", HTTP_GET, relay19On);
+  server.on("/relay19/off", HTTP_GET, relay19Off);
+  server.on("/relay32/on", HTTP_GET, relay32On);
+  server.on("/relay32/off", HTTP_GET, relay32Off);
+  server.on("/relay33/on", HTTP_GET, relay33On);
+  server.on("/relay33/off", HTTP_GET, relay33Off);
+  server.on("/relay21/on", HTTP_GET, relay21On);
+  server.on("/relay21/off", HTTP_GET, relay21Off);
+  server.on("/relays/on", HTTP_GET, relaysOn);
+  server.on("/relays/off", HTTP_GET, relaysOff);
+
+  server.on("/relays/status", HTTP_GET, relaysStatus);
+  server.onNotFound([]() {
+
+    if (server.method() == HTTP_OPTIONS) {
+
+      enableCORS();
+
+      server.send(204);
+
+      return;
+    }
+
+    enableCORS();
+    server.send(
+      404,
+      "application/json",
+      "{\"success\":false}"
+    );
+  });
+  server.begin();
+  Serial.println("Servidor HTTP listo");
+  Serial.println();
+}
+void loop() {
+  server.handleClient();
+}
