@@ -1,0 +1,68 @@
+
+
+:root {
+  --color-corona: #3b82f6;
+  --color-hastiales: #ef4444;
+  --color-produccion: #eab308;
+  --color-ayudas: #f8fafc;
+  --color-arranque: #10b981;
+  --color-arrastre: #a855f7;
+}
+
+body {
+  margin: 0;
+  background-color: #040810;
+  color: #fff;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Lights styling */
+.light-node {
+  stroke-width: 3;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light-node:hover {
+  transform-origin: center;
+  opacity: 0.9;
+}
+
+/* Fallas (Broken state) */
+@keyframes blinkError {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.5; transform: scale(0.9); }
+}
+
+/* Shimmer effect for buttons */
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}

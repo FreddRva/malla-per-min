@@ -1,0 +1,504 @@
+<div
+  class="min-h-screen w-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1f2937] via-[#11151c] to-[#0a0c10] text-gray-200 font-sans p-6 flex flex-col items-center"
+>
+  <div class="text-center mb-10 mt-4">
+    <h1
+      class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-gray-200 to-gray-400 drop-shadow-sm"
+    >
+      Panel de Control HMI
+    </h1>
+    <p
+      class="text-blue-500/80 font-mono tracking-widest text-sm md:text-xs uppercase font-semibold"
+    >
+      Malla de Perforación Minera // Sistema Automatizado
+    </p>
+  </div>
+  <div class="flex flex-col md:flex-row gap-8 w-full max-w-6xl items-start justify-center">
+    <div
+      class="bg-[#161b22]/80 backdrop-blur-md rounded-3xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex-1 flex flex-col items-center relative w-full md:w-[600px] border border-gray-700/50"
+    >
+      <svg viewBox="-60 -110 520 680" class="w-full h-auto max-h-[600px]">
+        <defs>
+          <linearGradient id="tunnel-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2d3748" />
+            <stop offset="50%" stop-color="#1f2937" />
+            <stop offset="100%" stop-color="#0f172a" />
+          </linearGradient>
+          <linearGradient id="metal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6b7280" />
+            <stop offset="50%" stop-color="#374151" />
+            <stop offset="100%" stop-color="#111827" />
+          </linearGradient>
+          <radialGradient id="dome-shading" cx="50%" cy="50%" r="50%">
+            <stop offset="60%" stop-color="black" stop-opacity="0" />
+            <stop offset="95%" stop-color="black" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="black" stop-opacity="0.9" />
+          </radialGradient>
+          <radialGradient id="glow-center" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="white" stop-opacity="1" />
+            <stop offset="40%" stop-color="white" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="white" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <path
+          d="M -50 550 L -50 150 A 250 250 0 0 1 450 150 L 450 550 Z"
+          fill="none"
+          stroke="#000000"
+          stroke-width="12"
+          class="blur-md opacity-40"
+        />
+        <path
+          d="M -50 550 L -50 150 A 250 250 0 0 1 450 150 L 450 550 Z"
+          fill="url(#tunnel-grad)"
+          stroke="#4b5563"
+          stroke-width="1"
+        />
+
+        <g stroke="#374151" stroke-width="2" fill="none" stroke-dasharray="8 8" class="opacity-40">
+          <path d="M -50 550 L -50 150 A 250 250 0 0 1 450 150 L 450 550 Z" />
+          <line x1="200" y1="-100" x2="200" y2="550" />
+          <line x1="-50" y1="250" x2="450" y2="250" />
+          <line x1="50" y1="20" x2="350" y2="20" />
+          <line x1="50" y1="500" x2="350" y2="500" />
+          <polyline points="125,-40 200,-60 275,-40" />
+          <polygon points="175,225 225,225 225,275 175,275" />
+          <polygon points="150,200 250,200 250,300 150,300" />
+          <polygon points="125,175 275,175 275,325 125,325" />
+          <polygon points="200,100 350,250 200,400 50,250" />
+          <polygon points="50,100 350,100 350,400 50,400" />
+          <polygon points="125,50 275,50 275,450 125,450" />
+        </g>
+
+        @for (light of lights(); track light.id) {
+          <g
+            (click)="toggleLight(light.id)"
+            class="cursor-pointer group"
+            style="transition: all 0.3s ease"
+          >
+            @if (light.isOn) {
+              <rect
+                [attr.x]="light.x - 24"
+                [attr.y]="light.y - 24"
+                width="48"
+                height="48"
+                class="opacity-60 blur-xl transition-all duration-300"
+                [ngClass]="{
+                  'fill-[#ef4444]': light.id <= 5 || (light.id >= 26 && light.id <= 28),
+                  'fill-[#22c55e]':
+                    (light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17),
+                  'fill-[#3b82f6]': light.id >= 10 && light.id <= 13,
+                  'fill-[#f59e0b]': light.id >= 18 && light.id <= 21,
+                  'fill-[#ffffff]': light.id >= 22 && light.id <= 25,
+                  'fill-[#a855f7]': light.id >= 29 && light.id <= 31,
+                  'fill-[#f97316]': light.id >= 32,
+                }"
+              />
+            }
+
+            <circle
+              [attr.cx]="light.x"
+              [attr.cy]="light.y + 3"
+              r="15"
+              fill="#000000"
+              class="opacity-50 blur-[3px]"
+            />
+
+            <circle
+              [attr.cx]="light.x"
+              [attr.cy]="light.y"
+              r="16"
+              class="transition-colors duration-300"
+              [ngClass]="{
+                'fill-[#b91c1c]':
+                  light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                'fill-[#450a0a]':
+                  !light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+
+                'fill-[#15803d]':
+                  light.isOn &&
+                  ((light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17)),
+                'fill-[#052e16]':
+                  !light.isOn &&
+                  ((light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17)),
+
+                'fill-[#1d4ed8]': light.isOn && light.id >= 10 && light.id <= 13,
+                'fill-[#172554]': !light.isOn && light.id >= 10 && light.id <= 13,
+
+                'fill-[#b45309]': light.isOn && light.id >= 18 && light.id <= 21,
+                'fill-[#451a03]': !light.isOn && light.id >= 18 && light.id <= 21,
+
+                'fill-[#d1d5db]': light.isOn && light.id >= 22 && light.id <= 25,
+                'fill-[#374151]': !light.isOn && light.id >= 22 && light.id <= 25,
+
+                'fill-[#7e22ce]': light.isOn && light.id >= 29 && light.id <= 31,
+                'fill-[#3b0764]': !light.isOn && light.id >= 29 && light.id <= 31,
+
+                'fill-[#c2410c]': light.isOn && light.id >= 32,
+                'fill-[#431407]': !light.isOn && light.id >= 32,
+              }"
+            />
+
+            <circle
+              [attr.cx]="light.x"
+              [attr.cy]="light.y"
+              r="14"
+              class="transition-colors duration-300"
+              [ngClass]="{
+                'fill-[#ef4444]':
+                  light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                'fill-[#7f1d1d]':
+                  !light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+
+                'fill-[#22c55e]':
+                  light.isOn &&
+                  ((light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17)),
+                'fill-[#14532d]':
+                  !light.isOn &&
+                  ((light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17)),
+
+                'fill-[#3b82f6]': light.isOn && light.id >= 10 && light.id <= 13,
+                'fill-[#1e3a8a]': !light.isOn && light.id >= 10 && light.id <= 13,
+
+                'fill-[#f59e0b]': light.isOn && light.id >= 18 && light.id <= 21,
+                'fill-[#78350f]': !light.isOn && light.id >= 18 && light.id <= 21,
+
+                'fill-[#ffffff]': light.isOn && light.id >= 22 && light.id <= 25,
+                'fill-[#6b7280]': !light.isOn && light.id >= 22 && light.id <= 25,
+
+                'fill-[#a855f7]': light.isOn && light.id >= 29 && light.id <= 31,
+                'fill-[#4c1d95]': !light.isOn && light.id >= 29 && light.id <= 31,
+
+                'fill-[#f97316]': light.isOn && light.id >= 32,
+                'fill-[#7c2d12]': !light.isOn && light.id >= 32,
+              }"
+            />
+
+            <g
+              class="pointer-events-none transition-opacity duration-300"
+              [ngClass]="light.isOn ? 'opacity-20' : 'opacity-60'"
+            >
+              <rect
+                [attr.x]="light.x - 3"
+                [attr.y]="light.y - 1"
+                width="2"
+                height="5"
+                fill="#9ca3af"
+              />
+              <rect
+                [attr.x]="light.x + 1"
+                [attr.y]="light.y - 3"
+                width="3"
+                height="7"
+                fill="#9ca3af"
+              />
+              <path
+                [attr.d]="
+                  'M ' +
+                  (light.x - 1) +
+                  ' ' +
+                  (light.y + 1) +
+                  ' L ' +
+                  (light.x + 1) +
+                  ' ' +
+                  (light.y - 1)
+                "
+                stroke="#9ca3af"
+                stroke-width="1"
+              />
+            </g>
+
+            <circle
+              [attr.cx]="light.x"
+              [attr.cy]="light.y"
+              r="14"
+              fill="url(#dome-shading)"
+              class="opacity-90 pointer-events-none"
+            />
+
+            @if (light.isOn) {
+              <circle
+                [attr.cx]="light.x"
+                [attr.cy]="light.y"
+                r="10"
+                fill="url(#glow-center)"
+                class="pointer-events-none opacity-100"
+              />
+              <circle
+                [attr.cx]="light.x"
+                [attr.cy]="light.y"
+                r="4"
+                fill="#ffffff"
+                class="pointer-events-none blur-[1px] opacity-90"
+              />
+            }
+
+            <ellipse
+              [attr.cx]="light.x - 3"
+              [attr.cy]="light.y - 7"
+              rx="5"
+              ry="2.5"
+              fill="#ffffff"
+              class="pointer-events-none opacity-60 blur-[0.5px]"
+            />
+            <circle
+              [attr.cx]="light.x + 5"
+              [attr.cy]="light.y + 6"
+              r="1.5"
+              fill="#ffffff"
+              class="pointer-events-none opacity-30"
+            />
+
+            <text
+              [attr.x]="light.x"
+              [attr.y]="light.y + 24"
+              text-anchor="middle"
+              font-size="11"
+              font-family="monospace"
+              class="font-extrabold pointer-events-none transition-all duration-300"
+              [ngClass]="{
+                'fill-gray-100 drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]': light.isOn,
+                'fill-gray-500': !light.isOn,
+              }"
+            >
+              {{ light.id }}
+            </text>
+            @if (light.isBroken) {
+              <circle
+                [attr.cx]="light.x"
+                [attr.cy]="light.y"
+                r="20"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2"
+                class="animate-pulse pointer-events-none"
+              />
+            }
+          </g>
+        }
+      </svg>
+    </div>
+
+    <div class="flex-1 flex flex-col gap-6 w-full md:max-w-[420px]">
+      <div
+        class="bg-[#1e232d] border border-gray-700/50 shadow-xl rounded-2xl flex flex-col overflow-hidden"
+      >
+        <div class="px-6 py-5 border-b border-gray-700/50 flex flex-col gap-1">
+          <h2 class="text-lg font-semibold text-gray-100 flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-blue-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path>
+            </svg>
+            Control de Circuitos
+          </h2>
+          <p class="text-sm text-gray-400">Gestione la ignición de la malla por secciones.</p>
+        </div>
+
+        <div
+          class="flex flex-col p-3 gap-2 h-[380px] overflow-y-auto"
+          style="scrollbar-width: thin"
+        >
+          @for (group of groups; track group.id) {
+            <button
+              (click)="toggleGroup(group.id)"
+              class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 border shrink-0"
+              [ngClass]="
+                isGroupOn(group.id)
+                  ? 'bg-gray-800/80 border-gray-600/50'
+                  : 'bg-transparent border-transparent hover:bg-gray-800/40'
+              "
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-900 border border-gray-700 shadow-inner shrink-0"
+                >
+                  <div
+                    class="w-4 h-4 rounded-full transition-all duration-300"
+                    [style.backgroundColor]="group.color"
+                    [style.boxShadow]="isGroupOn(group.id) ? '0 0 10px ' + group.color : 'none'"
+                    [ngClass]="{ 'opacity-40': !isGroupOn(group.id) }"
+                  ></div>
+                </div>
+
+                <div class="flex flex-col items-start">
+                  <span class="font-medium text-gray-200 text-[15px]">{{ group.name }}</span>
+                  <span class="text-xs text-gray-500">{{ group.count }} detonadores</span>
+                </div>
+              </div>
+
+              <div
+                class="w-12 h-6 rounded-full relative transition-colors duration-300 flex items-center px-1 shrink-0"
+                [style.backgroundColor]="isGroupOn(group.id) ? group.color : '#374151'"
+              >
+                <div
+                  class="w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300"
+                  [class.translate-x-6]="isGroupOn(group.id)"
+                  [class.translate-x-0]="!isGroupOn(group.id)"
+                ></div>
+              </div>
+            </button>
+          }
+        </div>
+      </div>
+
+      <div
+        class="bg-[#1e232d] border border-gray-700/50 shadow-xl rounded-2xl p-6 flex flex-col gap-4"
+      >
+        <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+          Acciones Globales
+        </h2>
+
+        <div class="flex flex-col gap-3 p-4 bg-[#11151c] rounded-xl border border-gray-700/50">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-gray-200">Ignición Secuencial</span>
+            <span
+              class="text-xs text-blue-400 font-mono bg-blue-900/20 px-2 py-0.5 rounded border border-blue-800/50"
+            >
+              {{ sequentialDelayMs() / 1000 | number: '1.1-1' }}s
+            </span>
+          </div>
+
+          <input
+            type="range"
+            min="500"
+            max="10000"
+            step="500"
+            [value]="sequentialDelayMs()"
+            (input)="updateSequentialDelay($event)"
+            class="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+          />
+
+          <div class="flex justify-between text-[10px] text-gray-500 font-mono mt-0.5 mb-2">
+            <span>0.5s</span>
+            <span>10.0s</span>
+          </div>
+          @if (!isSequentialRunning()) {
+            <button
+              (click)="sequentialOn()"
+              class="flex items-center justify-center gap-2 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-all active:scale-[0.98] shadow-lg shadow-blue-900/20"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              Iniciar Secuencia
+            </button>
+          }
+
+          @if (isSequentialRunning()) {
+            <button
+              (click)="stopSequential()"
+              class="flex items-center justify-center gap-2 py-2.5 bg-gray-800 border border-orange-500/50 hover:bg-gray-700 text-orange-400 rounded-lg font-medium transition-all active:scale-[0.98]"
+            >
+              <svg
+                class="w-4 h-4 animate-pulse"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
+                ></path>
+              </svg>
+              Detener Secuencia (Fase {{ currentSequentialStep() }}/10)
+            </button>
+          }
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-2">
+          <button
+            (click)="turnAllOn()"
+            class="flex items-center justify-center gap-2 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all shadow-lg shadow-blue-900/20 active:scale-[0.98]"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              ></path>
+            </svg>
+            Encender Todo
+          </button>
+
+          <button
+            (click)="turnAllOff()"
+            class="flex items-center justify-center gap-2 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 rounded-xl font-medium transition-all active:scale-[0.98]"
+          >
+            <svg
+              class="w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18.364 5.636a9 9 0 11-12.728 0M12 3v9"
+              ></path>
+            </svg>
+            Apagar Todo
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="bg-[#1e232d] border border-gray-700/50 shadow-xl rounded-2xl p-6 flex flex-col gap-3"
+      >
+        <label class="text-sm font-semibold text-gray-300">Dirección IP del ESP32</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg
+              class="h-5 w-5 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            [value]="esp32Ip()"
+            (input)="updateIp($event)"
+            class="w-full bg-[#11151c] border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-gray-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+            placeholder="Ej: 192.168.100.105"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
