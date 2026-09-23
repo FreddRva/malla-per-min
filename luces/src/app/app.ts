@@ -104,6 +104,7 @@ export class App {
   }
 
   toggleLight(id: number) {
+    if (id === 3) return;
     const light = this.lights().find((l) => l.id === id);
     if (light) {
       if (light.types.length > 0) {

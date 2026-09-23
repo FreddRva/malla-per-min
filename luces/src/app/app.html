@@ -79,7 +79,8 @@
                 height="48"
                 class="opacity-60 blur-xl transition-all duration-300"
                 [ngClass]="{
-                  'fill-[#ef4444]': light.id <= 5 || (light.id >= 26 && light.id <= 28),
+                  'fill-[#ef4444]': (light.id <= 5 && light.id !== 3) || (light.id >= 26 && light.id <= 28),
+                  'fill-[#000000]': light.id === 3,
                   'fill-[#22c55e]':
                     (light.id >= 6 && light.id <= 9) || (light.id >= 14 && light.id <= 17),
                   'fill-[#3b82f6]': light.id >= 10 && light.id <= 13,
@@ -106,9 +107,10 @@
               class="transition-colors duration-300"
               [ngClass]="{
                 'fill-[#b91c1c]':
-                  light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                  light.isOn && ((light.id <= 5 && light.id !== 3) || (light.id >= 26 && light.id <= 28)),
                 'fill-[#450a0a]':
-                  !light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                  !light.isOn && ((light.id <= 5 && light.id !== 3) || (light.id >= 26 && light.id <= 28)),
+                'fill-[#000000]': light.id === 3,
 
                 'fill-[#15803d]':
                   light.isOn &&
@@ -141,9 +143,10 @@
               class="transition-colors duration-300"
               [ngClass]="{
                 'fill-[#ef4444]':
-                  light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                  light.isOn && ((light.id <= 5 && light.id !== 3) || (light.id >= 26 && light.id <= 28)),
                 'fill-[#7f1d1d]':
-                  !light.isOn && (light.id <= 5 || (light.id >= 26 && light.id <= 28)),
+                  !light.isOn && ((light.id <= 5 && light.id !== 3) || (light.id >= 26 && light.id <= 28)),
+                'fill-[#111111]': light.id === 3,
 
                 'fill-[#22c55e]':
                   light.isOn &&
